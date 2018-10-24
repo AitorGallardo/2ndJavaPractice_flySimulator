@@ -9,7 +9,9 @@ public class AirSpace {
 	public static final int MAXCAP = 5;
 	
 	int[][] zone = new int[XMAX][YMAX]; // ini constructor
-	ArrayList<Object> currentAirplanes = new ArrayList<Object>();
+	ArrayList<Airplane> currentAirplanes = new ArrayList<Airplane>();
+	
+	
 	
 	
 
