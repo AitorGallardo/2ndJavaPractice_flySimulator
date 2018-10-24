@@ -9,7 +9,22 @@ public class AirSpace {
 	public static final int MAXCAP = 5;
 	
 	int[][] zone = new int[XMAX][YMAX]; // ini constructor
-	ArrayList<Airplane> currentAirplanes = new ArrayList<Airplane>();
+	private ArrayList<Airplane> currentAirplanes = new ArrayList<Airplane>();
+	
+	
+	
+	
+	
+	
+	public ArrayList<Airplane> getCurrentAirplanes() {
+		return currentAirplanes;
+	}
+	public void addAirplane(Airplane airplane) {
+		this.currentAirplanes.add(airplane);
+	}
+	public void removeAirplane(int airplaneNumber) {
+		this.currentAirplanes.remove(airplaneNumber);
+	}
 	
 	
 	
