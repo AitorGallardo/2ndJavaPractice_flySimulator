@@ -23,10 +23,48 @@ public class Listener {
 					
 	
 	
+	public int inputInt(){
+		
+		Scanner log = new Scanner(System.in);
+		int input = 0;
+		
+		while (!log.hasNextInt()){
+				log.next();
+				System.out.print("Input no valid. Introdueix un número"); //MIRAR CLASSE STATICA
+		}
+		input=log.nextInt();
+		log.nextLine();
+		return input;
+	}
+	
+	public String inputString() {
+		
+		String input = "";
+		Scanner log = new Scanner(System.in);
+		
+		input = log.nextLine();
+		
+		return input;	
+	}
+	
+	public int menuGeneralOptions(int inputNumber) {
+		
+		int menuOption = -1;
+		
+		while(inputNumber < 1 && inputNumber > 4) {
+			
+			System.out.print("Escull una opció del menu"); //MIRAR CLASSE STATICA
+		}
+		
+		menuOption = inputNumber;
+		
+		return menuOption;
+	}
+	
 	 public String inputOfMenuOptionN2() {
 	     
 		 boolean out = false;
-		 String keyWord = "";
+		 String airplaneAction = "";
 	     char command = 0;
 	     Scanner log = new Scanner(System.in);
 	     System.out.println("\n\n----> ESCULL UNA ACCIO");
@@ -37,47 +75,47 @@ public class Listener {
 		     		if(menuOptionN2[i].charAt(0)==command){// keys[i].equals(command)
 		     			out=true;
 		     			if((i>=0) && (i<=1)) {
-		     				keyWord = launchMotor;
+		     				airplaneAction = launchMotor;
 		     			}
 		     			if((i>=2) && (i<=3)) {
-		     				keyWord = stopMotor;
+		     				airplaneAction = stopMotor;
 		     			}
 		     			if((i>=4) && (i<=5)) {
-		     				keyWord = accelerate;
+		     				airplaneAction = accelerate;
 		     			}
 		     			if((i>=6) && (i<=7)) {
-		     				keyWord = stop;
+		     				airplaneAction = stop;
 		     			}
 		     			if((i>=8) && (i<=9)) {
-		     				keyWord = increaseAltitude;
+		     				airplaneAction = increaseAltitude;
 		     			}
 		     			if((i>=10) && (i<=11)) {
-		     				keyWord = decreaseAltitude;
+		     				airplaneAction = decreaseAltitude;
 		     			}
 		     			if((i>=12) && (i<=13)) {
-		     				keyWord = landingGearOn;
+		     				airplaneAction = landingGearOn;
 		     			}
 		     			if((i>=14) && (i<=15)) {
-		     				keyWord = landingGearOff;
+		     				airplaneAction = landingGearOff;
 		     			}
 		     			if((i>=16) && (i<=17)) {
-		     				keyWord = newDirection;
+		     				airplaneAction = newDirection;
 		     			}
 		     			if((i>=18) && (i<=19)) {
-		     				keyWord = newX;
+		     				airplaneAction = newX;
 		     			}
 		     			if((i>=20) && (i<=21)) {
-		     				keyWord = newY;
+		     				airplaneAction = newY;
 		     			}
 		     			if((i>=22) && (i<=23)) {
-		     				keyWord = park;
+		     				airplaneAction = park;
 		     			}
 		     			if((i>=24) && (i<=25)) {
-		     				keyWord = endOperations;
+		     				airplaneAction = endOperations;
 		     			}
 		     		}
 		     	}
 		}
-		return keyWord;
+		return airplaneAction;
 	}
 }
