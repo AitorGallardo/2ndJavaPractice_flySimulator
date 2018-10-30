@@ -16,7 +16,7 @@ public class AirSpace {
 	
 	
 	
-	public ArrayList<Airplane> getCurrentAirplanes() {
+	public ArrayList<Airplane> getCurrentAirplanes() { //menu 4. Info?
 		return currentAirplanes;
 	}
 	public void addAirplane(Airplane airplane) {
