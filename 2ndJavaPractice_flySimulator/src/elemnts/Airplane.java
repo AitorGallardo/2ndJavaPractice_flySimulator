@@ -8,6 +8,7 @@ public class Airplane {
 	private double direction;
 	private double speed;
 	private boolean motorOn;
+	private boolean landing_gearOn;
 	private int MaxCapacity;
 	
 	public Airplane(String model, String manufacturer, String numberPlate,int MaxCapacity, int x, int y) {
@@ -18,6 +19,7 @@ public class Airplane {
 		this.MaxCapacity = MaxCapacity;
 		this.positionX = x;
 		this.positionY = y;
+		this.landing_gearOn = true;
 		
 		
 	}
@@ -34,12 +36,19 @@ public class Airplane {
 	public void decreaseSpeed(int reduceSpeed) {
 		speed-=reduceSpeed;
 	}
-	public void increaseAltitude() {
-		
+	public void increaseAltitude(int increaseAltitude) {
+		speed+=increaseAltitude;
 	}
-	public void decreaseAltitude() {
-		
+	public void decreaseAltitude(int decreaseAltitude) {
+		speed-=decreaseAltitude;
 	}
+	public void open_closeLandingGear(boolean landing_gearOn) {
+		this.landing_gearOn = landing_gearOn;
+	}
+	public void setDirection(double newDirection) {
+		direction = newDirection;
+	}
+	
 	
 	
 	
@@ -81,6 +90,10 @@ public class Airplane {
 
 	public boolean isMotorOn() {
 		return motorOn;
+	}
+
+	public boolean isLanding_gearOn() {
+		return landing_gearOn;
 	}
 
 	public int getMaxCapacity() {
