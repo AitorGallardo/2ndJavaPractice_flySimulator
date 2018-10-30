@@ -27,7 +27,7 @@ public class Listener {
 		
 		Scanner log = new Scanner(System.in);
 		int input = 0;
-		
+
 		while (!log.hasNextInt()){
 				log.next();
 				System.out.print("Input no valid. Introdueix un número"); //MIRAR CLASSE STATICA
