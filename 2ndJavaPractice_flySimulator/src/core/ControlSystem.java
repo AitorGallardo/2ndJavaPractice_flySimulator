@@ -7,6 +7,11 @@ public class ControlSystem {
 
 	
 	AirSpace airSpace = new AirSpace();
+	
+	public ControlSystem(AirSpace space) {
+		airSpace = space;
+		
+	}
 
 
 	
