@@ -16,7 +16,7 @@ public class Airplane {
 		this.model = model;
 		this.manufacturer = manufacturer;
 		this.numberPlate = numberPlate;
-		this.MaxCapacity = MaxCapacity;
+		this.MaxCapacity = MaxCapacity;	
 		this.positionX = x;
 		this.positionY = y;
 		this.landing_gearOn = true;
@@ -48,6 +48,14 @@ public class Airplane {
 	public void setDirection(double newDirection) {
 		direction = newDirection;
 	}
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
+	}
+	
 	
 	
 	

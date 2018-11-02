@@ -22,7 +22,7 @@ public class AirSpace {
 	public void addAirplane(Airplane airplane) {
 		this.currentAirplanes.add(airplane);
 	}
-	public void removeAirplane(int airplaneNumber) {
+	public void removeAirplane(int airplaneNumber) { 
 		this.currentAirplanes.remove(airplaneNumber);
 	}
 	
