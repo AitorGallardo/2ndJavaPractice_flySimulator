@@ -2,26 +2,26 @@ package utilities;
 
 import java.util.Scanner;
 
-public class Listener {
+public final class InputListener {
 	
 	//Airplane actions
-	String[] menuOptionN2 = {"a","b","c","d","e","f","g","h","i","j","k"};
+	private static final String[] menuOptionN2 = {"a","b","c","d","e","f","g","h","i","j","k"};
 	
-	private String  launchMotor = "launchMotor",
-					stopMotor = "stopMotor",
-					accelerate = "accelerate",
-					stop = "stop",
-					increaseAltitude = "+increaseAltitude",
-					decreaseAltitude = "decreaseAltitude",
-					landingGearOn_Off = "landingGearOn_Off",
-					newDirection = "newDirection",
-					newX_Y = "newX_Y",
-					park = "park",
-					endOperations = "endOperations";
+	private static final String  launchMotor = "launchMotor",
+								stopMotor = "stopMotor",
+								accelerate = "accelerate",
+								stop = "stop",
+								increaseAltitude = "+increaseAltitude",
+								decreaseAltitude = "decreaseAltitude",
+								landingGearOn_Off = "landingGearOn_Off",
+								newDirection = "newDirection",
+								newX_Y = "newX_Y",
+								park = "park",
+								endOperations = "endOperations";
 					
 	
 	
-	public int inputInt(){
+	public static int inputInt(){
 		
 		Scanner log = new Scanner(System.in);
 		int input = 0;
@@ -35,7 +35,7 @@ public class Listener {
 		return input;
 	}
 	
-	public String inputString() {
+	public static String inputString() {
 		
 		String input = "";
 		Scanner log = new Scanner(System.in);
@@ -45,7 +45,7 @@ public class Listener {
 		return input.toLowerCase();	
 	}
 	
-	public int menuGeneralOptions(int inputNumber) {
+	public static int menuGeneralOptions(int inputNumber) {
 		
 		int menuOption = -1;
 		
@@ -59,7 +59,7 @@ public class Listener {
 		return menuOption;
 	}
 	
-	 public String inputOfMenuOptionN2() {
+	 public static String inputOfMenuOptionN2() {
 	     
 		 boolean out = false;
 		 String airplaneAction = "";
