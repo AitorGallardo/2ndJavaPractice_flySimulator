@@ -7,8 +7,7 @@ public class Airplane {
 	private double altitude;
 	private double direction;
 	private double speed;
-	private boolean motorOn;
-	private boolean landing_gearOn;
+	private boolean motorOn, landing_gearOn, active;
 	private int MaxCapacity;
 	
 	public Airplane(String model, String manufacturer, String numberPlate,int MaxCapacity, int x, int y) {
@@ -54,6 +53,26 @@ public class Airplane {
 
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
+	}
+	public void park() {
+		
+		double speedToPark = getSpeed();
+		double altitudeToPark = getAltitude();
+		
+		if(isActive()) {
+			if(speedToPark == 20 && altitudeToPark == 0) {
+				System.out.println("Es procedeix a aparcar l'avio"); // printer
+				setActive(false);
+			} else {
+				if(speedToPark > 20)
+					System.out.println("La velocitat ha de ser inferior a 20km/h per aparcar. Pots reduir la velocitat apretant 'd'");
+				if(altitudeToPark > 0)
+					System.out.println("L'avio ha de estar aterrat per poder aparcar. Pots reduir la altitud de l'avio fins a aterrar apretant 'f'");
+			}
+		} else {
+			System.out.println("L'avio ja esta aparcat");
+			return;
+		}	
 	}
 	
 	
@@ -102,6 +121,13 @@ public class Airplane {
 
 	public boolean isLanding_gearOn() {
 		return landing_gearOn;
+	}
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public int getMaxCapacity() {
