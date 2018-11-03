@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Listener {
 	
 	//Airplane actions
-	String[] menuOptionN2 = {"a","A","b","B","c","C","d","D","e","E","f","F","g","G","h","H","i","I","j","J","k","K"};
+	String[] menuOptionN2 = {"a","b","c","d","e","f","g","h","i","j","k"};
 	
 	private String  launchMotor = "launchMotor",
 					stopMotor = "stopMotor",
@@ -13,11 +13,9 @@ public class Listener {
 					stop = "stop",
 					increaseAltitude = "+increaseAltitude",
 					decreaseAltitude = "decreaseAltitude",
-					landingGearOn = "landingGearOn",
-					landingGearOff = "landingGearOff",
+					landingGearOn_Off = "landingGearOn_Off",
 					newDirection = "newDirection",
-					newX = "newX",
-					newY = "newY",
+					newX_Y = "newX_Y",
 					park = "park",
 					endOperations = "endOperations";
 					
@@ -44,7 +42,7 @@ public class Listener {
 		
 		input = log.nextLine();
 		
-		return input;	
+		return input.toLowerCase();	
 	}
 	
 	public int menuGeneralOptions(int inputNumber) {
@@ -70,49 +68,34 @@ public class Listener {
 	     System.out.println("\n\n----> ESCULL UNA ACCIO");
 	     while(out==false){
 	    	 command=log.next().charAt(0);
-	     	 // System.out.println(command);
+
 		     for(int i =0 ; i < menuOptionN2.length; i++){
-		     		if(menuOptionN2[i].charAt(0)==command){// keys[i].equals(command)
+		    	 
+		     		if(menuOptionN2[i].charAt(0) == Character.toLowerCase(command)){ // keys[i].equals(command)
+		     			
 		     			out=true;
-		     			if((i>=0) && (i<=1)) {
-		     				airplaneAction = launchMotor;
-		     			}
-		     			if((i>=2) && (i<=3)) {
-		     				airplaneAction = stopMotor;
-		     			}
-		     			if((i>=4) && (i<=5)) {
-		     				airplaneAction = accelerate;
-		     			}
-		     			if((i>=6) && (i<=7)) {
-		     				airplaneAction = stop;
-		     			}
-		     			if((i>=8) && (i<=9)) {
-		     				airplaneAction = increaseAltitude;
-		     			}
-		     			if((i>=10) && (i<=11)) {
-		     				airplaneAction = decreaseAltitude;
-		     			}
-		     			if((i>=12) && (i<=13)) {
-		     				airplaneAction = landingGearOn;
-		     			}
-		     			if((i>=14) && (i<=15)) {
-		     				airplaneAction = landingGearOff;
-		     			}
-		     			if((i>=16) && (i<=17)) {
-		     				airplaneAction = newDirection;
-		     			}
-		     			if((i>=18) && (i<=19)) {
-		     				airplaneAction = newX;
-		     			}
-		     			if((i>=20) && (i<=21)) {
-		     				airplaneAction = newY;
-		     			}
-		     			if((i>=22) && (i<=23)) {
-		     				airplaneAction = park;
-		     			}
-		     			if((i>=24) && (i<=25)) {
-		     				airplaneAction = endOperations;
-		     			}
+		     			
+		     			if(i==0) airplaneAction = launchMotor;
+		    			
+		     			if(i==1) airplaneAction = stopMotor;
+
+		     			if(i==2) airplaneAction = accelerate;
+		     			
+		     			if(i==3) airplaneAction = stop;
+
+		     			if(i==4) airplaneAction = increaseAltitude;
+
+		     			if(i==5) airplaneAction = decreaseAltitude;
+
+		     			if(i==6) airplaneAction = landingGearOn_Off;
+
+		     			if(i==7) airplaneAction = newDirection;
+
+		     			if(i==8) airplaneAction = newX_Y;
+
+		     			if(i==9) airplaneAction = park;
+
+		     			if(i==10) airplaneAction = endOperations;
 		     		}
 		     	}
 		}
