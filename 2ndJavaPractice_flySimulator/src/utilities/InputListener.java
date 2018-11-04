@@ -11,7 +11,7 @@ public final class InputListener {
 								stopMotor = "stopMotor",
 								accelerate = "accelerate",
 								stop = "stop",
-								increaseAltitude = "+increaseAltitude",
+								increaseAltitude = "increaseAltitude",
 								decreaseAltitude = "decreaseAltitude",
 								landingGearOn_Off = "landingGearOn_Off",
 								newDirection = "newDirection",

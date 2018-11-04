@@ -41,8 +41,8 @@ public class Airplane {
 	public void decreaseAltitude(int decreaseAltitude) {
 		speed-=decreaseAltitude;
 	}
-	public void open_closeLandingGear(boolean landing_gearOn) {
-		this.landing_gearOn = landing_gearOn;
+	public void open_closeLandingGear() {
+		this.landing_gearOn = !this.landing_gearOn;
 	}
 	public void setDirection(double newDirection) {
 		direction = newDirection;
@@ -81,7 +81,7 @@ public class Airplane {
 	
 	
 	
-	// Getters
+	// Getters&setters
 	
 	public String getModel() {
 		return model;
