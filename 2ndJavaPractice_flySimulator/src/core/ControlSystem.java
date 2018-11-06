@@ -14,6 +14,12 @@ public class ControlSystem {
 		airSpace = space;
 		
 	}
+	
+	public boolean minAltitude(int airplaneNumber) {
+		Airplane test = airSpace.getAirplane(airplaneNumber);
+		test.getAltitude();
+		return true;
+	}
 
 
 // New airplanes (menu option 1)
@@ -38,7 +44,7 @@ public class ControlSystem {
 	}
 // Airplanes functions (menu option 2)
 	
-	public int lookForNumberPlateMatches() {
+	public int checkNumberPlateMatches() {
 		
 		String numberPlate = InputListener.inputString();
 		Airplane[] currentAirplanes = airSpace.getCurrentAirplanes();
@@ -53,6 +59,13 @@ public class ControlSystem {
 		return -1;
 	}
 	
+	public boolean checkNameindevelopment(String airplaneNumber) { /// can an airplane do certains functions??
+		
+		
+		
+		return true;
+	}
+	
 	public void mainAirplaneFunctions(int airplaneNumber) {
 		
 		if(airplaneNumber != -1) {
@@ -64,10 +77,10 @@ public class ControlSystem {
 		} else {
 			System.out.println("Aquesta matriucla no es troba registrada entre els avions que hi han a pista");
 		}
-			
-
-		}
 	}
+	
+	
+	
 	
 	public void clean(int airplanePosition) {
 

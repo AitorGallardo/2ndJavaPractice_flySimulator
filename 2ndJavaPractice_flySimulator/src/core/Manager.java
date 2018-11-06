@@ -24,7 +24,7 @@ public class Manager {
 			        	controlSystem.AddNewAirplane();
 			            break;
 			        case 2:
-			        	controlSystem.mainAirplaneFunctions(controlSystem.lookForNumberPlateMatches());
+			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches());
 			            break;
 			        case 3:
 			        	printer.printInitialMap(); //printer.printInitialMap();  When the game has been completed <------

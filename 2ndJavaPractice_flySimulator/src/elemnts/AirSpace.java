@@ -25,6 +25,9 @@ public class AirSpace {
 	public Airplane[] getCurrentAirplanes() {
 		return currentAirplanes;
 	}
+	public Airplane getAirplane(int number) {
+		return currentAirplanes[number];
+	}
 	
 
 	public void addAirplane(Airplane newairplane) {
