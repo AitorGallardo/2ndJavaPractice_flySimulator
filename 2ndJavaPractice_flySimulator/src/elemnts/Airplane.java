@@ -4,9 +4,9 @@ public class Airplane {
 	
 	private String model, manufacturer, numberPlate;
 	private int positionX, positionY;
-	private double altitude;
-	private double direction;
-	private double speed;
+	private int altitude;
+	private int direction;
+	private int speed;
 	private boolean motorOn, landing_gearOn, active;
 	private int MaxCapacity;
 	
@@ -22,6 +22,8 @@ public class Airplane {
 		
 		
 	}
+	
+	//Printer indicando canvios?
 
 	public void turnOn_motor() {
 		motorOn = true;
@@ -30,39 +32,59 @@ public class Airplane {
 		motorOn = false;
 	}
 	public void increaseSpeed(int addSpeed) {
-		speed+=addSpeed;
+		if(motorOn) {
+			speed+=addSpeed;
+		}
 	}
 	public void decreaseSpeed(int reduceSpeed) {
-		speed-=reduceSpeed;
+		if(motorOn) {
+			speed-=reduceSpeed;
+		}
 	}
-	public void increaseAltitude(int increaseAltitude) {
-		speed+=increaseAltitude;
+	public void increaseAltitude(int increasingAltitude) {
+		if(motorOn && checkBeforeIncreasingAltitude(increasingAltitude)) {
+			speed+=increasingAltitude;
+		}
 	}
-	public void decreaseAltitude(int decreaseAltitude) {
-		speed-=decreaseAltitude;
+	public void decreaseAltitude(int decreasingAltitude) {
+		if(motorOn) {
+			speed-=decreasingAltitude;
+		}
 	}
 	public void open_closeLandingGear() {
 		this.landing_gearOn = !this.landing_gearOn;
 	}
-	public void setDirection(double newDirection) {
-		direction = newDirection;
+	public void setDirection(int newDirection) {
+		if(motorOn) {
+			direction = newDirection;
+		}
 	}
 	public void setPositionX(int positionX) {
-		this.positionX = positionX;
+		if(motorOn) {
+			this.positionX = positionX;
+		}
 	}
 
 	public void setPositionY(int positionY) {
-		this.positionY = positionY;
+		if(motorOn) {
+			this.positionY = positionY;
+		}
 	}
 	public void park() {
+		if(motorOn&&checkBeforePark()) {
+			System.out.println("Es procedeix a aparcar l'avio"); // printer
+			setActive(false);
+		}
+	}
+	
+	public boolean checkBeforePark() {
 		
 		double speedToPark = getSpeed();
 		double altitudeToPark = getAltitude();
 		
 		if(isActive()) {
-			if(speedToPark == 20 && altitudeToPark == 0) {
-				System.out.println("Es procedeix a aparcar l'avio"); // printer
-				setActive(false);
+			if(speedToPark >= 20 && altitudeToPark == 0) {
+				return true;
 			} else {
 				if(speedToPark > 20)
 					System.out.println("La velocitat ha de ser inferior a 20km/h per aparcar. Pots reduir la velocitat apretant 'd'");
@@ -71,9 +93,99 @@ public class Airplane {
 			}
 		} else {
 			System.out.println("L'avio ja esta aparcat");
-			return;
-		}	
+		}
+		return false;
 	}
+		
+	public boolean checkRequiredSpeedToTakeOff() {
+
+		int currentSpeed = getSpeed();
+		int minSpeedToTakeOff = 180;
+
+			
+			if(currentSpeed >= minSpeedToTakeOff) {
+				return true;
+			} else {
+				System.out.println("Has de tenir una velocitat minima de 180km/h per enlairarte");
+				return false;
+			}	
+	}
+	
+	public boolean checkIfLandingGearHasToBeOpen(int desiredAltitude) {
+		
+		if(desiredAltitude > 500 && landing_gearOn==false) {
+			System.out.println("Has de recollir el tren d'aterratge si vols enlairarte a mes de 500m d'altitud");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean checkIfCanIOpenLandingGear() {
+		
+		int currentAltitude = getAltitude();
+		int currentSpeed = getSpeed();
+		
+		if(currentAltitude > 500 && currentSpeed >= 300) {
+			System.out.println("Hauras de reduir la teva altitud o velocitat per poder desplegar el tren d'aterratge");
+			return false;
+		}
+		
+	}
+	
+	public boolean checkIfCanICloseLandingGear() {
+		
+		int currentAltitude = getAltitude();
+		int currentSpeed = getSpeed();
+		
+		if(currentAltitude > 500 && currentSpeed >= 300) {
+			System.out.println("Hauras de reduir la teva altitud o velocitat per poder desplegar el tren d'aterratge");
+			return false;
+		}
+		
+	}
+	
+	public boolean checkBeforeIncreasingAltitude(int inputNewAltitude) {
+		
+		int currentAltitude = getAltitude();
+		int desiredAltitude = currentAltitude + inputNewAltitude;
+
+			if(currentAltitude==0) {
+				if(checkRequiredSpeedToTakeOff()) {
+					return false;
+				}
+			} else {
+				if(checkIfLandingGearHasToBeOpen(desiredAltitude)==false) {
+					return false;
+				}
+			}
+			return true;
+	}
+	
+	public boolean checkBeforeDecreasingAltitude(int inputNewAltitude) {
+		
+		int currentAltitude = getAltitude();
+		int desiredAltitude = currentAltitude - inputNewAltitude;
+
+			if(currentAltitude==0) {
+				System.out.println("Estas a terra, no pots descendir ");
+					return false;
+			} else if(desiredAltitude==0) {
+				System.out.println("Has de desplegar el tren d'aterratge per poder aterrar");
+				return false;
+			} else if(desiredAltitude<0) {
+				System.out.println("No pots descendir aquesta altura o colisionaras contra el terre");
+					return false;
+			} else if(desiredAltitude<100){
+				System.out.println("Has de desplagar el tren d'aterratge si vols descendir a una altitud inferior als 100 metres");
+					return false;
+			} else if() {
+				
+			}
+
+			return true;
+	}
+
 	
 	
 	
@@ -103,15 +215,15 @@ public class Airplane {
 		return positionY;
 	}
 
-	public double getAltitude() {
+	public int getAltitude() {
 		return altitude;
 	}
 
-	public double getDirection() {
+	public int getDirection() {
 		return direction;
 	}
 
-	public double getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
 
