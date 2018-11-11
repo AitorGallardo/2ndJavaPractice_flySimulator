@@ -2,6 +2,8 @@ package elemnts;
 
 public class Airplane {
 	
+	public static final int MODEL_MAXLENGHT = 10, MANUFACTURER_MAXLENGHT = 10, NUMBERPLATE_MAXLENGHT = 8, MAXDIRECTION = 360, SPEED_LIMIT = 2000, MAXCAPACITY_LIMIT = 500;
+	
 	private String model, manufacturer, numberPlate;
 	private int positionX, positionY;
 	private int altitude;
@@ -10,7 +12,7 @@ public class Airplane {
 	private boolean motorOn, landing_gearOn, active;
 	private int MaxCapacity;
 	
-	public Airplane(String model, String manufacturer, String numberPlate,int MaxCapacity, int x, int y) {
+	public Airplane(String model, String manufacturer, String numberPlate, int MaxCapacity, int x, int y) {
 		
 		this.model = model;
 		this.manufacturer = manufacturer;
@@ -19,9 +21,19 @@ public class Airplane {
 		this.positionX = x;
 		this.positionY = y;
 		this.landing_gearOn = true;
-		
-		
+				
 	}
+
+	// MAXIMO MATRICULA, MAXIMO MANUFACTURER, MODELO,MAX DIRECTION, SPEED, CAPACIDAD
+	// PODRIA HACER UNA CLASSE VALIDATORS PARA LAS CONDICIONES O HACER DIRECTAMENTE LOS METODOS EN CADA CLASSE
+	
+
+			/*public void setAnumber(int value) { //// MAX POSITION RANGE (((CONTROL SYSTEM)))
+		    if ((value < 1) || (value > 3))
+		        throw new IllegalArgumentException("value is out of range for anumber");
+		    this.anumber = value;
+			}*/
+
 	
 	//Printer indicando canvios?
 
@@ -52,7 +64,17 @@ public class Airplane {
 		}
 	}
 	public void open_closeLandingGear() {
-		this.landing_gearOn = !this.landing_gearOn;
+
+		if(this.landing_gearOn==true){
+			if(checkIfCanICloseLandingGear()){
+				this.landing_gearOn = !this.landing_gearOn;
+			}
+		} else {
+			if(checkIfCanIOpenLandingGear()){
+				this.landing_gearOn = !this.landing_gearOn;
+			}
+		}
+		
 	}
 	public void setDirection(int newDirection) {
 		if(motorOn) {
@@ -76,6 +98,8 @@ public class Airplane {
 			setActive(false);
 		}
 	}
+	
+	// Check functions
 	
 	public boolean checkBeforePark() {
 		
@@ -111,7 +135,7 @@ public class Airplane {
 			}	
 	}
 	
-	public boolean checkIfLandingGearHasToBeOpen(int desiredAltitude) {
+	public boolean checkLandingGearOnRaiseAltitude(int desiredAltitude) {
 		
 		if(desiredAltitude > 500 && landing_gearOn==false) {
 			System.out.println("Has de recollir el tren d'aterratge si vols enlairarte a mes de 500m d'altitud");
@@ -127,8 +151,10 @@ public class Airplane {
 		int currentSpeed = getSpeed();
 		
 		if(currentAltitude > 500 && currentSpeed >= 300) {
-			System.out.println("Hauras de reduir la teva altitud o velocitat per poder desplegar el tren d'aterratge");
+			System.out.println("Hauras de reduir la teva altitud i o velocitat per poder desplegar el tren d'aterratge");
 			return false;
+		} else {
+			return true;
 		}
 		
 	}
@@ -136,11 +162,12 @@ public class Airplane {
 	public boolean checkIfCanICloseLandingGear() {
 		
 		int currentAltitude = getAltitude();
-		int currentSpeed = getSpeed();
-		
-		if(currentAltitude > 500 && currentSpeed >= 300) {
-			System.out.println("Hauras de reduir la teva altitud o velocitat per poder desplegar el tren d'aterratge");
+
+		if(currentAltitude <= 50) {
+			System.out.println("Hauras d'augmentar la teva altitud per poder tancar el tren d'aterratge");
 			return false;
+		} else {
+			return true;
 		}
 		
 	}
@@ -155,7 +182,7 @@ public class Airplane {
 					return false;
 				}
 			} else {
-				if(checkIfLandingGearHasToBeOpen(desiredAltitude)==false) {
+				if(checkLandingGearOnRaiseAltitude(desiredAltitude)==false) {
 					return false;
 				}
 			}
@@ -179,10 +206,8 @@ public class Airplane {
 			} else if(desiredAltitude<100){
 				System.out.println("Has de desplagar el tren d'aterratge si vols descendir a una altitud inferior als 100 metres");
 					return false;
-			} else if() {
-				
-			}
-
+			}		
+					
 			return true;
 	}
 

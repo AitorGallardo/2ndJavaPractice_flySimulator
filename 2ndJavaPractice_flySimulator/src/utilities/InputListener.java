@@ -20,28 +20,54 @@ public final class InputListener {
 								endOperations = "endOperations";
 					
 	
-	
 	public static int inputInt(){
+		int defaultValue = 9999;
+		return inputInt(defaultValue);	
+	}
+	
+	public static int inputInt(int controlValue){
 		
 		Scanner log = new Scanner(System.in);
 		int input = 0;
-
-		while (!log.hasNextInt()){
+		boolean validation = false;
+		
+		while(validation==false) {
+			while (!log.hasNextInt()){
 				log.next();
 				System.out.print("Input no valid. Introdueix un número"); //MIRAR CLASSE STATICA
+		
+			}
+			input=log.nextInt();
+			if(input >= 0 && input <= controlValue) {
+				validation = true;	
+			}
+			else {
+				// RULES MENU
+			}
 		}
-		input=log.nextInt();
 		log.nextLine();
 		return input;
 	}
 	
 	public static String inputString() {
+		int defaultValue = 9999;
+		return inputString(defaultValue);
+	}
+	
+	public static String inputString(int controlValue) {
 		
 		String input = "";
+		boolean validation = false;
+		
 		Scanner log = new Scanner(System.in);
 		
-		input = log.nextLine();
-		
+		while(validation==false) {
+			input = log.nextLine();
+			
+			if(input.length() <= controlValue) {
+				validation = true;
+			}
+		}
 		return input.toLowerCase();	
 	}
 	

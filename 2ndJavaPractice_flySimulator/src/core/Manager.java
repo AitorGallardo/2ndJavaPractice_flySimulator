@@ -1,6 +1,7 @@
 package core;
 
 import elemnts.AirSpace;
+import elemnts.Airplane;
 import utilities.InputListener;
 
 public class Manager {
@@ -24,7 +25,7 @@ public class Manager {
 			        	controlSystem.AddNewAirplane();
 			            break;
 			        case 2:
-			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches());
+			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches(InputListener.inputString(Airplane.NUMBERPLATE_MAXLENGHT)));
 			            break;
 			        case 3:
 			        	printer.printInitialMap(); //printer.printInitialMap();  When the game has been completed <------
