@@ -1,6 +1,6 @@
         
 
-            package core;
+package core;
 
 import java.util.ArrayList;
 import elemnts.AirSpace;
@@ -12,14 +12,14 @@ public class ControlSystem {
     
     // AirSpace airSpace = new AirSpace();
     
-    public static final int XMAX = 10, YMAX = 10, MAXCAP = 5; // Delimitacio de l'espai aeri, espai real = 10^3
+    public static final int XMAX = 1000, YMAX = 1000, MAXCAP = 5; // Delimitacio de l'espai aeri, espai real = 10^3
 
     
     int[][] zone;
     private Airplane[] currentAirplanes;
     
-    public ControlSystem(AirSpace space) {
-        // airSpace = space;
+    public ControlSystem() {
+    	this.currentAirplanes = new Airplane[5];
     }
     
     //// CHECKS PARA QUE NO SE PASEN DE LOS RANGOS DEL MAPA, 
@@ -33,19 +33,26 @@ public class ControlSystem {
     
     public void AddNewAirplane() {
 
-        bool freeXYPosition = false;
+        boolean freeXYPosition = false;
+        int x = 0, y = 0;
         
         if(getNumberOfairplanesAmount() < MAXCAP) {
-            String numberPlate = InputListener.inputString(Airplane.NUMBERPLATE_MAXLENGHT);
-            if(checkNumberPlateMatches(numberPlate) != -1){
-                String model = InputListener.inputString(Airplane.MODEL_MAXLENGHT),
-                       manufacturer =  InputListener.inputString(Airplane.MANUFACTURER_MAXLENGHT);
-                        //CHECK DE LAS MATRICULAS
-                
+        	System.out.println("INTRODUEIX MATRICULA");
+            String numberPlate = InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT);
+            
+            if(checkNumberPlateMatches(numberPlate) == -1){
+            	System.out.println("INTRODUEIX MODEL");
+                String model = InputListener.inputString(Airplane.MODEL_MAXLENGHT);
+                System.out.println("INTRODUEIX MANUFACTURER");
+                String manufacturer =  InputListener.inputString(Airplane.MANUFACTURER_MAXLENGHT);
+                	
+                System.out.println("INTRODUEIX CAPACITY");
                 int maxCapacity = InputListener.inputInt();
                 while(freeXYPosition == false){
-                    int x = InputListener.inputInt(),
-                        y = InputListener.inputInt();
+                	System.out.println("INTRODUEIX X");
+                     	x = InputListener.inputInt(XMAX);
+                     	System.out.println("INTRODUEIX Y");
+                        y = InputListener.inputInt(YMAX);
                       freeXYPosition = checkFreePositionOnCreate(x, y);
                 }
                 addAirplane(new Airplane(model, manufacturer, numberPlate, maxCapacity, x, y));
@@ -92,8 +99,7 @@ public class ControlSystem {
 // Airplanes functions (menu option 2)
     
     public int checkNumberPlateMatches(String numberPlate) {
-        
-        Airplane[] currentAirplanes = getCurrentAirplanes();
+
         int position = 0;
         
         
@@ -104,6 +110,7 @@ public class ControlSystem {
             } 
             position++;  
         }
+        
         return -1;
     }
     
@@ -112,11 +119,11 @@ public class ControlSystem {
         if(airplaneNumber != -1) {
             
             String airplaneOption = InputListener.inputOfMenuOptionN2();
-            
-            airSpace.airplaneActions(airplaneNumber, airplaneOption);
+            System.out.println("INTRODUEIX una MATRICULA");
+            airplaneActions(airplaneNumber, airplaneOption);
             
         } else {
-            System.out.println("Aquesta matriucla no es troba registrada entre els avions que hi han a pista");
+            System.out.println("Aquesta matricula no es troba registrada entre els avions que hi han a pista");
         }
     }
     
@@ -130,7 +137,7 @@ public class ControlSystem {
     }
 
     public void display() {
-        airSpace.getCurrentAirplanes(); // more 
+        // airSpace.getCurrentAirplanes(); // more 
     }
     
     //AirSpace
@@ -142,16 +149,17 @@ public class ControlSystem {
 
         for(Airplane airplane : currentAirplanes) {
             if(!airplane.isActive()) {
-                System.out.printl("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat";
+                System.out.println("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat");
                 currentAirplanes[position]= null;
             }
             else if(airplane.getPositionX()>XMAX || airplane.getPositionY()>YMAX 
                     || airplane.getPositionX()<0 || airplane.getPositionY()<0) {
-                System.out.printl("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat";
+                System.out.println("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat");
                 currentAirplanes[position]= null;
             }
             position++;   
         }
+        checkDangers();
     }
 
     public Airplane[] copyOfCurrentAirplanes() { // Gives a copy of the airplanes with the exact number of positions
@@ -170,7 +178,7 @@ public class ControlSystem {
         return currentAirplanesCopy; 
     }
 
-    public void perillColisio() {
+    public void checkDangers() {
 
         int comparedAirplane = 0;
         int checkingAirplane = 0;
@@ -183,12 +191,12 @@ public class ControlSystem {
                 checkingY = currentAirplanesCopy[checkingAirplane].getPositionY(),
                 checkingAltitude = currentAirplanesCopy[checkingAirplane].getAltitude();
             comparedAirplane = checkingAirplane+1;
-            while(comparedAirplane < airplanesAmount) {
+            while(comparedAirplane <= airplanesAmount) {
                 int x =  Math.abs(checkingX - currentAirplanesCopy[comparedAirplane].getPositionX());
                 int y =  Math.abs(checkingY - currentAirplanesCopy[comparedAirplane].getPositionY());
                 int altitude = Math.abs(checkingAltitude - currentAirplanesCopy[comparedAirplane].getAltitude());
-                if() {
-
+                if((x<50 && y<50) && altitude < 500) {
+                    System.out.println("Perill de colisio!!!");
                 }
                 comparedAirplane++;
             }  

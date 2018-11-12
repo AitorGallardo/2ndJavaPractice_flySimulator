@@ -64,9 +64,28 @@ public final class InputListener {
 		while(validation==false) {
 			input = log.nextLine();
 			
-			if(input.length() <= controlValue) {
+			if(input.length() <= controlValue)
 				validation = true;
-			}
+				else
+					System.out.println("No pots introduir mes de  "+controlValue+" caracters");
+		}
+		return input.toLowerCase();	
+	}
+	
+	public static String inputStringExactLenght(int controlValue) {
+		
+		String input = "";
+		boolean validation = false;
+		
+		Scanner log = new Scanner(System.in);
+		
+		while(validation==false) {
+			input = log.nextLine();
+			
+			if(input.length() == controlValue) 
+				validation = true;
+				else
+					System.out.println("Has d'introduir "+controlValue+" caracters");
 		}
 		return input.toLowerCase();	
 	}
