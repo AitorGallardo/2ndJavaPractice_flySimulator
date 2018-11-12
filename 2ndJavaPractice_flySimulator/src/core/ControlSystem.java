@@ -33,10 +33,9 @@ public class ControlSystem {
     
     public void AddNewAirplane() {
 
-        boolean freeXYPosition = false;
-        int x, y;
+        bool freeXYPosition = false;
         
-        if(getNumberOfExistingAirplanes() < MAXCAP) {
+        if(getNumberOfairplanesAmount() < MAXCAP) {
             String numberPlate = InputListener.inputString(Airplane.NUMBERPLATE_MAXLENGHT);
             if(checkNumberPlateMatches(numberPlate) != -1){
                 String model = InputListener.inputString(Airplane.MODEL_MAXLENGHT),
@@ -45,8 +44,8 @@ public class ControlSystem {
                 
                 int maxCapacity = InputListener.inputInt();
                 while(freeXYPosition == false){
-                    x = InputListener.inputInt();
-                    y = InputListener.inputInt();
+                    int x = InputListener.inputInt(),
+                        y = InputListener.inputInt();
                       freeXYPosition = checkFreePositionOnCreate(x, y);
                 }
                 addAirplane(new Airplane(model, manufacturer, numberPlate, maxCapacity, x, y));
@@ -68,7 +67,7 @@ public class ControlSystem {
     }
     
     //CHECKS
-    public int getNumberOfExistingAirplanes() {
+    public int getNumberOfairplanesAmount() {
         
         int numberOfAirplanes = 0;
         
@@ -102,7 +101,8 @@ public class ControlSystem {
             if(airplane!=null) {
                 if(airplane.getNumberPlate().equals(numberPlate))
                     return position;
-            }   
+            } 
+            position++;  
         }
         return -1;
     }
@@ -113,7 +113,7 @@ public class ControlSystem {
             
             String airplaneOption = InputListener.inputOfMenuOptionN2();
             
-            airplaneActions(airplaneNumber, airplaneOption);
+            airSpace.airplaneActions(airplaneNumber, airplaneOption);
             
         } else {
             System.out.println("Aquesta matriucla no es troba registrada entre els avions que hi han a pista");
@@ -136,11 +136,63 @@ public class ControlSystem {
     //AirSpace
         
 
-    public Airplane[] getCurrentAirplanes() {
-        return currentAirplanes;
+    public void airSpaceMaintenance() {
+        
+        int position = 0;
+
+        for(Airplane airplane : currentAirplanes) {
+            if(!airplane.isActive()) {
+                System.out.printl("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat";
+                currentAirplanes[position]= null;
+            }
+            else if(airplane.getPositionX()>XMAX || airplane.getPositionY()>YMAX 
+                    || airplane.getPositionX()<0 || airplane.getPositionY()<0) {
+                System.out.printl("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat";
+                currentAirplanes[position]= null;
+            }
+            position++;   
+        }
     }
-    public Airplane getAirplane(int number) {
-        return currentAirplanes[number];
+
+    public Airplane[] copyOfCurrentAirplanes() { // Gives a copy of the airplanes with the exact number of positions
+
+        int airplanesAmount = getNumberOfairplanesAmount();
+        Airplane[] currentAirplanesCopy = new Airplane[airplanesAmount];
+        int copyPosition = 0;
+
+
+        for(int position = 0 ; position < currentAirplanes.length; position++) {
+            if(currentAirplanes[position] != null) {
+                currentAirplanesCopy[copyPosition] = currentAirplanes[position];
+                copyPosition++;
+            }
+        }
+        return currentAirplanesCopy; 
+    }
+
+    public void perillColisio() {
+
+        int comparedAirplane = 0;
+        int checkingAirplane = 0;
+        int airplanesAmount = copyOfCurrentAirplanes().length;
+        Airplane[] currentAirplanesCopy = copyOfCurrentAirplanes();
+        
+
+        while(checkingAirplane < airplanesAmount){
+            int checkingX = currentAirplanesCopy[checkingAirplane].getPositionX(),
+                checkingY = currentAirplanesCopy[checkingAirplane].getPositionY(),
+                checkingAltitude = currentAirplanesCopy[checkingAirplane].getAltitude();
+            comparedAirplane = checkingAirplane+1;
+            while(comparedAirplane < airplanesAmount) {
+                int x =  Math.abs(checkingX - currentAirplanesCopy[comparedAirplane].getPositionX());
+                int y =  Math.abs(checkingY - currentAirplanesCopy[comparedAirplane].getPositionY());
+                int altitude = Math.abs(checkingAltitude - currentAirplanesCopy[comparedAirplane].getAltitude());
+                if() {
+
+                }
+                comparedAirplane++;
+            }  
+        }
     }
     
 
@@ -187,9 +239,6 @@ public class ControlSystem {
             case "endOperations":
                 break;
         }
+
     }
-        
-    
-
-
 }
