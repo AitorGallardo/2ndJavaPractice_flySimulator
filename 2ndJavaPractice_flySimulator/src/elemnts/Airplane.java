@@ -232,44 +232,46 @@ public class Airplane {
 	}
 	
 	
-/*	public void valueToPrint(int number) {
-		
-		switch(number) {
-			case 0:
-				getManufacturer();
-				break;
-			case 1:
-				getModel();
-				break;
-			case 2:
-				getNumberPlate();
-				break;
-			case 3:
-				getPositionX();
-				break;
-			case 4:
-				getPositionY();
-				break;
-			case 5:
-				getAltitude();
-				break;
-			case 6:
-				getSpeed();
-				break;
-			case 7:
-				isLanding_gearOn();
-				break;
-			case 8:
-				isMotorOn();
-				break;
-			case 9:
-				isActive();
-				break;
-		}
-	}*/
 
-	
-	
+    public String valueToPrint(int number) {
+    
+    String info = "";
+    
+    switch(number) {
+        case 0:
+            info =  String.valueOf(getManufacturer());
+            break;
+        case 1:
+            info = String.valueOf(getModel());
+            break;
+        case 2:
+            info = String.valueOf(getNumberPlate());
+            break;
+        case 3:
+            info = String.valueOf(getPositionX());
+            break;
+        case 4:
+            info = String.valueOf(getPositionY());
+            break;
+        case 5:
+            info = String.valueOf(getAltitude());
+            break;
+        case 6:
+            info = String.valueOf(getSpeed());
+            break;
+        case 7:
+            info = String.valueOf(isLanding_gearOn());
+            break;
+        case 8:
+            info = String.valueOf(isMotorOn());
+            break;
+        case 9:
+            info = String.valueOf(isActive());
+            break;
+    }
+    return info;
+}
+
 	
 	
 	

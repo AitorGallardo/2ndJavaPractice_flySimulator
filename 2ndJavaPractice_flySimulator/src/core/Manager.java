@@ -1,8 +1,8 @@
 package core;
 
-import elemnts.AirSpace;
 import elemnts.Airplane;
 import utilities.InputListener;
+import utilities.Printer;
 
 public class Manager {
 	
@@ -39,9 +39,9 @@ public class Manager {
 						controlSystem.airSpaceMaintenance();
 			            break;
 			        case 4:
-						System.out.println("MENU 4");
-						controlSystem.checkDangers();
-			            break;
+                        Printer.airplaneTable(controlSystem.copyOfCurrentAirplanes());
+                        controlSystem.checkDangers();
+                        break;
 				}
 				// end = true;
 			}	

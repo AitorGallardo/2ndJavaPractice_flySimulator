@@ -163,12 +163,20 @@ public final class Printer {
 		System.out.println("Has de desplagar el tren d'aterratge si vols descendir a una altitud inferior als 100 metres");
 	}			
 
-/*	public static void airplaneTable(Airplane[] currentAirplanes) {
-		int position = 0;
-		System.out.printf("%10s %30s %20s %5s %5s", "STUDENT ID", "EMAIL ID", "NAME", "AGE", "GRADE");
-		for(Airplane airplane : currentAirplanes) {
-			System.out.format("%10s %30s %20s %5d %5c", airplane.valueToPrint(position));
-		}
-	}
-*/
+	// tableInfo
+    public static void airplaneTable(Airplane[] currentAirplanes) {
+        
+        String[] parameters = {"Marca: ","Model: ","Matricula: ","X: ","Y: ","Alcada: ","Velocitat: ","Tren Aterratge: ","Motor: ","Aparcat: "};
+        
+        System.out.printf("%10s %30s %20s %5s %5s", "", "Aeronau 1", "Aeronau 2", "Aeronau 3", "Aeronau 4", "Aeronau 5");
+        System.out.println();
+        for(int position = 0; position < 10; position++) {
+            System.out.printf("%-14s", parameters[position]);
+            for(Airplane airplane : currentAirplanes) {
+                System.out.printf("%-14s", airplane.valueToPrint(position));
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 }
