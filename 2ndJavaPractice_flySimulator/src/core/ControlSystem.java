@@ -12,22 +12,25 @@ public class ControlSystem {
     
     // AirSpace airSpace = new AirSpace();
     
-    public static final int XMAX = 1000, YMAX = 1000, MAXCAP = 5; // Delimitacio de l'espai aeri, espai real = 10^3
+    public static final int XMAX = 1000, YMAX = 1000, MAXCAP = 5;
+    public static final String [] RULES = { "Valor maxim de X = "+XMAX,
+    										"Valor maxim de Y ="+YMAX,
+    										"Caracters maxims pel model ="+ Airplane.MODEL_MAXLENGHT,
+    										"Caracters maxims pel fabricant ="+ Airplane.MANUFACTURER_MAXLENGHT,
+    										"Caracters requerits de la matricula ="+ Airplane.NUMBERPLATE_MAXLENGHT,
+    										"Direccio maxima en graus  ="+ Airplane.MAXDIRECTION,
+    										"Limit de velocitat en k/h ="+ Airplane.SPEED_LIMIT ,
+    										"Limit de capacitat ="+ Airplane.MAXCAPACITY_LIMIT };
 
     
     int[][] zone;
     private Airplane[] currentAirplanes;
+
     
     public ControlSystem() {
     	this.currentAirplanes = new Airplane[5];
     }
     
-    //// CHECKS PARA QUE NO SE PASEN DE LOS RANGOS DEL MAPA, 
-
-
-
-    
-
 
 // New airplanes (menu option 1)
     
@@ -38,7 +41,7 @@ public class ControlSystem {
         
         if(getAmountOfCurrentAirplanes() < MAXCAP) {
         	Printer.inputNumberPlate();
-            String numberPlate = InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT);
+            String numberPlate = InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT, RULES);
             
             if(checkNumberPlateMatches(numberPlate) == -1){
             	Printer.inputModel();
@@ -80,7 +83,6 @@ public class ControlSystem {
         }
     }
     
-    //CHECKS
     public int getAmountOfCurrentAirplanes() {
         
         int numberOfAirplanes = 0;
@@ -92,6 +94,9 @@ public class ControlSystem {
         }
         return numberOfAirplanes;
     }
+    
+    //CHECKS
+
     
     public boolean checkFreePositionOnCreate(int newX, int newY) {
         for(Airplane airplane : currentAirplanes) {
@@ -126,6 +131,7 @@ public class ControlSystem {
         
         if(airplaneNumber != -1 && getAmountOfCurrentAirplanes() > 0) {
             
+        	Printer.acceptedNumberPlate();
             String airplaneOption = InputListener.inputOfMenuOptionN2();
             System.out.println("Escull quina accio vols realitzi l'avio"); // FALTA
             airplaneActions(airplaneNumber, airplaneOption);
@@ -137,40 +143,30 @@ public class ControlSystem {
         }
     }
     
-    
-    
-    
-    public void clean(int airplanePosition) {
-
-        // zone.removeAirplane();
-        // use iterator list
-    }
-
-    public void display() {
-        // airSpace.getCurrentAirplanes(); // more 
-    }
-    
-    //AirSpace
-        
+    // Menu option 3
 
     public void airSpaceMaintenance() {
         
         int position = 0;
+        boolean modified = false;
 
         for(Airplane airplane : currentAirplanes) {
         	if(airplane != null) {
-                if(!airplane.isActive()) {
+                if(airplane.isActive()==false) {
                     Printer.deletedAirplane(airplane.getNumberPlate());
                     currentAirplanes[position]= null;
+                    modified=true;
                 }
                 else if(airplane.getPositionX()>XMAX || airplane.getPositionY()>YMAX 
                         || airplane.getPositionX()<0 || airplane.getPositionY()<0) {
                 	Printer.deletedAirplane(airplane.getNumberPlate());
                     currentAirplanes[position]= null;
+                    modified=true;
                 }
         	}
             position++;   
         }
+        if(!modified) Printer.untouchedAirspace();
     }
 
     public Airplane[] copyOfCurrentAirplanes() { // Gives a copy of the airplanes with the exact number of positions
@@ -188,6 +184,8 @@ public class ControlSystem {
         }
         return currentAirplanesCopy; 
     }
+    
+    // Menu option 4
 
     public void checkDangers() {
 
@@ -216,27 +214,26 @@ public class ControlSystem {
                 checkingAirplane++;
             }
         }
-
-        
     }
     
-
-
-    
-
+    // Menu option 2
+ 
     public void airplaneActions(int airplaneNumber, String action) {
 
     	boolean endOperative = false;
     	
     	while(!endOperative) {
             switch(action) { 
-            //TODOS LOS MENSAJES DE INTRODUCIR TAL DATO
-			    case "launchMotor": // podria avisar de q ya esta encendido o apagado			    	
+			    case "launchMotor": 			    	
 			    	Printer.turningOnMotor();
+			    	String stateOn = currentAirplanes[airplaneNumber].isMotorOn() == true ? " ja esta " : " ";
+			    	Printer.motorStateOn(stateOn);
 			        currentAirplanes[airplaneNumber].turnOn_motor();
 			        break;
 			    case "stopMotor":
 			    	Printer.turningOffMotor();
+			    	String stateOff = currentAirplanes[airplaneNumber].isMotorOn() == true ? " " : " ja esta ";
+			    	Printer.motorStateOff(stateOff);
 			        currentAirplanes[airplaneNumber].turnOff_motor();
 			        break;
 			    case "accelerate":
@@ -247,7 +244,7 @@ public class ControlSystem {
 			    case "stop":
 			    	Printer.decreasingSpeed();
 			    	Printer.inputDeccreaseSpeed();
-			        currentAirplanes[airplaneNumber].decreaseSpeed(InputListener.inputInt()); // comprobar q no sea menor a 0 y si te qdas sin velocidad en el aire algo
+			        currentAirplanes[airplaneNumber].decreaseSpeed(InputListener.inputInt()); 
 			        break;
 			    case "increaseAltitude":
 			    	Printer.increasingAltitude();

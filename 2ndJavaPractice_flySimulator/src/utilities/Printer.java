@@ -89,6 +89,12 @@ public final class Printer {
 	public static void increasingSpeed() {
 		System.out.println("Has escollit augmentar la velocitat l'avio");
 	}
+	public static void motorStateOn(String state) {
+		System.out.println("Motor"+state+"ences");
+	}
+	public static void motorStateOff(String state) {
+		System.out.println("Motor"+state+"apagat");
+	}
 	public static void decreasingSpeed() {
 		System.out.println("Has escollit reduir la velocitat l'avio");
 	}
@@ -138,9 +144,15 @@ public final class Printer {
 	public static void freeNumberPlate() {
 		System.out.println("Matricula no registrada");
 	}
+	public static void acceptedNumberPlate() {
+		System.out.println("Matricula registrada");
+	}
 	public static void deletedAirplane(String numberPlate) {
 		System.out.println("L' avio amb matricula "+numberPlate+" s'ha eliminat");
-	}						
+	}
+	public static void untouchedAirspace() {
+		System.out.println("No s'ha efectuat cap canvi a l'espai aeri");
+	}					
 	public static void crashRisk(String numberPlate1, String numberPlate2) {
 		System.out.println("Els avions amb matricula "+numberPlate1+ " i " +numberPlate2+" estan en risc de colisio!!");
 	}

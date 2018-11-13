@@ -25,8 +25,11 @@ public class Airplane {
 		this.landing_gearOn = true;
 		this.motorOn = true;
 		this.active = true;
+		this.altitude = 0;
 				
 	}
+	
+	//Airplane main functions
 
 	public void turnOn_motor() {
 		motorOn = true;
@@ -120,7 +123,7 @@ public class Airplane {
 		double altitudeToPark = getAltitude();
 		
 		if(isActive()) {
-			if(speedToPark >= 20 && altitudeToPark == 0) {
+			if(speedToPark <= 20 && altitudeToPark == 0) {
 				return true;
 			} else {
 				if(speedToPark > 20)
@@ -228,7 +231,9 @@ public class Airplane {
 	}
 	
 	
-
+	
+	// General info to print in a table
+	
     public String valueToPrint(int number) {
     
     String info = "";

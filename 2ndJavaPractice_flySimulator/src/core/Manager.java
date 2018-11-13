@@ -18,7 +18,7 @@ public class Manager {
 			Printer.generalOptions();
 			while(end==false) {
 				Printer.chooseMenuOption();
-				menuOption = InputListener.menuGeneralOptions(InputListener.inputInt());
+				menuOption = InputListener.menuGeneralOptions(InputListener.inputInt(4, "Escull una de les 4 opcions del menu"));
 				System.out.print("Has escollit la ");
 
 				switch(menuOption) { 
@@ -36,7 +36,6 @@ public class Manager {
 			        	Printer.menu4();
                         Printer.airplaneTable(controlSystem.copyOfCurrentAirplanes());
                         controlSystem.checkDangers();
-			        	// MENU 4
 			            break;
 			        case 3:
 			        	Printer.menu3();
