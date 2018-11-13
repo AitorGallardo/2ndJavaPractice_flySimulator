@@ -131,7 +131,7 @@ public class Airplane {
 				return true;
 			} else {
 				if(speedToPark > 20)
-					System.out.println("La velocitat ha de ser inferior a 20km/h per aparcar. Pots reduir la velocitat apretant 'd'");
+					System.out.println("La velocitat ha de ser inferior a 20km/h per aparcar");
 				if(altitudeToPark > 0)
 					System.out.println("L'avio ha de estar aterrat per poder aparcar. Pots reduir la altitud de l'avio fins a aterrar apretant 'f'");
 			}

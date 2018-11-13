@@ -258,8 +258,10 @@ public class ControlSystem {
 			        currentAirplanes[airplaneNumber].decreaseAltitude(InputListener.inputInt());
 			        break;
 			    case "landingGearOn_Off": 
+			    	String landGear = currentAirplanes[airplaneNumber].isLanding_gearOn() == true ? "tancat" : "obert";
 			    	System.out.println("Has LANDING........"); // TERNARNARI PER SETERAR UNA VARIABLE A ENCENDIDO O APAGADO
 			        currentAirplanes[airplaneNumber].open_closeLandingGear();
+			        
 			        break;
 			    case "newDirection":
 			    	System.out.println("Has escollit canviar la direccio l'avio");
