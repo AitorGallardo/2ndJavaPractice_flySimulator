@@ -28,21 +28,22 @@ public class Manager {
 			        	controlSystem.AddNewAirplane(); //TENEMOS AVION 
 			            break;
 			        case 2:
+			        	System.out.println("Introdueix la matricula de l'avio amb el que vols iniciar l'operativa");
 			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches(InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT)));
+			        	controlSystem.airSpaceMaintenance();
+			        	System.out.println("MENU 4");
+			        	controlSystem.checkDangers();
+			        	// MENU 4
 			            break;
-			        /*case 3:
-			        	printer.printInitialMap(); //printer.printInitialMap();  When the game has been completed <------
-			        	toPlay=true;
+			        case 3:
+						controlSystem.airSpaceMaintenance();
 			            break;
 			        case 4:
-			        	printer.printInitialMap(); //printer.printInitialMap();  When the game has been completed <------
-			        	toPlay=true;
-			            break;*/
+						System.out.println("MENU 4");
+						controlSystem.checkDangers();
+			            break;
 				}
 				// end = true;
-			
+			}	
 		}
-		
-
-}
 }

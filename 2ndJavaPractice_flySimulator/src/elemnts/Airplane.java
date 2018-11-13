@@ -21,6 +21,8 @@ public class Airplane {
 		this.positionX = x;
 		this.positionY = y;
 		this.landing_gearOn = true;
+		this.motorOn = true;
+		this.active = true;
 				
 	}
 
@@ -46,56 +48,74 @@ public class Airplane {
 	public void increaseSpeed(int addSpeed) {
 		if(motorOn) {
 			speed+=addSpeed;
+		}else {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void decreaseSpeed(int reduceSpeed) {
 		if(motorOn) {
 			speed-=reduceSpeed;
+		}else if(!motorOn) {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void increaseAltitude(int increasingAltitude) {
 		if(motorOn && checkBeforeIncreasingAltitude(increasingAltitude)) {
 			speed+=increasingAltitude;
+		}else if(!motorOn) {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void decreaseAltitude(int decreasingAltitude) {
-		if(motorOn) {
+		if(motorOn && checkBeforeDecreasingAltitude(decreasingAltitude)) {
 			speed-=decreasingAltitude;
+		}else if(!motorOn) {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void open_closeLandingGear() {
-
-		if(this.landing_gearOn==true){
-			if(checkIfCanICloseLandingGear()){
-				this.landing_gearOn = !this.landing_gearOn;
+		if(motorOn) {
+			if(this.landing_gearOn==true){
+				if(checkIfCanICloseLandingGear()){
+					this.landing_gearOn = !this.landing_gearOn;
+				}
+			} else {
+				if(checkIfCanIOpenLandingGear()){
+					this.landing_gearOn = !this.landing_gearOn;
+				}
 			}
 		} else {
-			if(checkIfCanIOpenLandingGear()){
-				this.landing_gearOn = !this.landing_gearOn;
-			}
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
-		
 	}
 	public void setDirection(int newDirection) {
 		if(motorOn) {
 			direction = newDirection;
+		} else {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void setPositionX(int positionX) {
 		if(motorOn) {
 			this.positionX = positionX;
+		} else {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 
 	public void setPositionY(int positionY) {
 		if(motorOn) {
 			this.positionY = positionY;
+		} else {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	public void park() {
 		if(motorOn&&checkBeforePark()) {
 			System.out.println("Es procedeix a aparcar l'avio"); // printer
 			setActive(false);
+		} else if(!motorOn) {
+			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
 		}
 	}
 	
@@ -210,6 +230,43 @@ public class Airplane {
 					
 			return true;
 	}
+	
+	
+/*	public void valueToPrint(int number) {
+		
+		switch(number) {
+			case 0:
+				getManufacturer();
+				break;
+			case 1:
+				getModel();
+				break;
+			case 2:
+				getNumberPlate();
+				break;
+			case 3:
+				getPositionX();
+				break;
+			case 4:
+				getPositionY();
+				break;
+			case 5:
+				getAltitude();
+				break;
+			case 6:
+				getSpeed();
+				break;
+			case 7:
+				isLanding_gearOn();
+				break;
+			case 8:
+				isMotorOn();
+				break;
+			case 9:
+				isActive();
+				break;
+		}
+	}*/
 
 	
 	
