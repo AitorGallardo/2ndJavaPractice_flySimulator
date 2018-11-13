@@ -32,6 +32,8 @@ public final class InputListener {
 														"k = Acabar operativa de l'avio" };
 					
 	
+	//Input ints
+	
 	public static int inputInt(){
 		int defaultValue = 9999;
 		return inputInt(defaultValue);	
@@ -110,6 +112,8 @@ public final class InputListener {
 		return input;
 	}
 	
+	// Input strings
+	
 	public static String inputString() {
 		int defaultValue = 9999;
 		return inputString(defaultValue);
@@ -156,6 +160,24 @@ public final class InputListener {
 		return input.toLowerCase();	
 	}
 	
+	public static String inputStringExactLenght(int controlValue) {
+		
+		String input = "";
+		boolean validation = false;
+		
+		Scanner log = new Scanner(System.in);
+		
+		while(validation==false) {
+			input = log.nextLine();
+			
+			if(input.length() == controlValue) 
+				validation = true;
+				else
+					System.out.println("Has d'introduir "+controlValue+" caracters");
+		}
+		return input.toLowerCase();	
+	}
+	
 	public static String inputStringExactLenght(int controlValue, String[] rules) {
 		
 		String input = "";
@@ -179,24 +201,8 @@ public final class InputListener {
 		return input.toLowerCase();	
 	}
 	
-	public static String inputStringExactLenght(int controlValue) {
+	// Specific menu inputs
 		
-		String input = "";
-		boolean validation = false;
-		
-		Scanner log = new Scanner(System.in);
-		
-		while(validation==false) {
-			input = log.nextLine();
-			
-			if(input.length() == controlValue) 
-				validation = true;
-				else
-					System.out.println("Has d'introduir "+controlValue+" caracters");
-		}
-		return input.toLowerCase();	
-	}
-	
 	public static int menuGeneralOptions(int inputNumber) {
 		
 		int menuOption = -1;
