@@ -18,17 +18,19 @@ public class Manager {
 
 			while(end==false) {
 				
-				System.out.println("Introdueix la opcio de menu");
+				// System.out.println("Introdueix la opcio de menu");
 				menuOption = InputListener.menuGeneralOptions(InputListener.inputInt());
 				System.out.println("Has introduit "+menuOption);
 
 				switch(menuOption) { 
 
 			        case 1:
+			        	Printer.menu1();
 			        	controlSystem.AddNewAirplane(); //TENEMOS AVION 
 			            break;
 			        case 2:
-			        	System.out.println("Introdueix la matricula de l'avio amb el que vols iniciar l'operativa");
+			        	Printer.menu2();
+			        	Printer.inputNumberPlateToStartOperative();
 			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches(InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT)));
 			        	controlSystem.airSpaceMaintenance();
 			        	System.out.println("MENU 4");
@@ -36,9 +38,11 @@ public class Manager {
 			        	// MENU 4
 			            break;
 			        case 3:
+			        	Printer.menu3();
 						controlSystem.airSpaceMaintenance();
 			            break;
 			        case 4:
+			        	Printer.menu4();
                         Printer.airplaneTable(controlSystem.copyOfCurrentAirplanes());
                         controlSystem.checkDangers();
                         break;

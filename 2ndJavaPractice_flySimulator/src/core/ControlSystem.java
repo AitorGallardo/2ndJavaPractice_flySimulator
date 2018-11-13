@@ -5,6 +5,7 @@ package core;
 import java.util.ArrayList;
 import elemnts.Airplane;
 import utilities.InputListener;
+import utilities.Printer;
 
 public class ControlSystem {
 
@@ -36,22 +37,22 @@ public class ControlSystem {
         int x = 0, y = 0;
         
         if(getAmountOfCurrentAirplanes() < MAXCAP) {
-        	System.out.println("INTRODUEIX MATRICULA");
+        	Printer.inputNumberPlate();
             String numberPlate = InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT);
             
             if(checkNumberPlateMatches(numberPlate) == -1){
-            	System.out.println("INTRODUEIX MODEL");
+            	Printer.inputModel();
                 String model = InputListener.inputString(Airplane.MODEL_MAXLENGHT);
-                System.out.println("INTRODUEIX MANUFACTURER");
+                Printer.inputManufacturer();
                 String manufacturer =  InputListener.inputString(Airplane.MANUFACTURER_MAXLENGHT);
                 	
-                System.out.println("INTRODUEIX CAPACITY");
+             Printer.inputCapacity();
                 int maxCapacity = InputListener.inputInt();
                 while(freeXYPosition == false){
-                	System.out.println("INTRODUEIX X");
+                	Printer.inputX();
                      	x = InputListener.inputInt(XMAX);
                      	System.out.println("x: "+x);
-                     	System.out.println("INTRODUEIX Y");
+                     	Printer.inputY();
                         y = InputListener.inputInt(YMAX);
                         System.out.println("y: "+y);
                       freeXYPosition = checkFreePositionOnCreate(x, y);
@@ -59,12 +60,12 @@ public class ControlSystem {
                 addAirplane(new Airplane(model, manufacturer, numberPlate, maxCapacity, x, y));
 
             } else {
-                System.out.println("Aquesta matricula ja es troba registrada");
+            	Printer.numberPlateAlreadyRegistered();
             }
 
                     
         } else {            
-            System.out.println("L'espai aeri esta ple. Utilitza la opcio del menu 3 per realitzar un manteniment de l'espai aeri");
+            Printer.fullAirspace();
         }
     }
     
@@ -95,7 +96,7 @@ public class ControlSystem {
         for(Airplane airplane : currentAirplanes) {
             if(airplane!=null) {
                 if(airplane.getPositionX() == newX && airplane.getPositionY() == newY ) {
-                    System.out.println("En aquesta posicio ja es troba un avio");
+                    Printer.OccupedPosition();
                     return false;
                 }
             }   
@@ -125,13 +126,13 @@ public class ControlSystem {
         if(airplaneNumber != -1 && getAmountOfCurrentAirplanes() > 0) {
             
             String airplaneOption = InputListener.inputOfMenuOptionN2();
-            System.out.println("Escull quina accio vols realitzi l'avio");
+            System.out.println("Escull quina accio vols realitzi l'avio"); // FALTA
             airplaneActions(airplaneNumber, airplaneOption);
             
         } else if(getAmountOfCurrentAirplanes() == 0) {
-        	System.out.println("L'espair aeri es troba buit");
+        	Printer.voidAirspace();
         } else {
-        	System.out.println("Matricula no registrada");
+        	Printer.freeNumberPlate();
         }
     }
     
@@ -158,12 +159,12 @@ public class ControlSystem {
         for(Airplane airplane : currentAirplanes) {
         	if(airplane != null) {
                 if(!airplane.isActive()) {
-                    System.out.println("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat");
+                    Printer.deletedAirplane(airplane.getNumberPlate());
                     currentAirplanes[position]= null;
                 }
                 else if(airplane.getPositionX()>XMAX || airplane.getPositionY()>YMAX 
                         || airplane.getPositionX()<0 || airplane.getPositionY()<0) {
-                    System.out.println("L' avio amb matricula "+airplane.getNumberPlate()+" s'ha eliminat");
+                	Printer.deletedAirplane(airplane.getNumberPlate());
                     currentAirplanes[position]= null;
                 }
         	}
@@ -206,8 +207,8 @@ public class ControlSystem {
                     int x =  Math.abs(checkingX - currentAirplanesCopy[comparedAirplane].getPositionX());
                     int y =  Math.abs(checkingY - currentAirplanesCopy[comparedAirplane].getPositionY());
                     int altitude = Math.abs(checkingAltitude - currentAirplanesCopy[comparedAirplane].getAltitude());
-                    if((x<50 && y<50) && altitude < 500) {
-                        System.out.println("Els avions amb matricula "+checkingNumberPlate+ " i " +numberPlate+" estan en risc de colisio!!");
+                    if((x<50 && y<50) && altitude < 500) {       
+                        Printer.crashRisk(checkingNumberPlate, numberPlate);
                     }
                     comparedAirplane++;
                 }
@@ -229,58 +230,57 @@ public class ControlSystem {
     	while(!endOperative) {
             switch(action) { 
             //TODOS LOS MENSAJES DE INTRODUCIR TAL DATO
-			    case "launchMotor": // podria avisar de q ya esta encendido o apagado
-			    	System.out.println("Has escollit encendre el motor de l'avio");
+			    case "launchMotor": // podria avisar de q ya esta encendido o apagado			    	
+			    	Printer.turningOnMotor();
 			        currentAirplanes[airplaneNumber].turnOn_motor();
 			        break;
 			    case "stopMotor":
-			    	System.out.println("Has escollit apagar el motor l'avio");
+			    	Printer.turningOffMotor();
 			        currentAirplanes[airplaneNumber].turnOff_motor();
 			        break;
 			    case "accelerate":
-			    	System.out.println("Has escollit augmentar la velocitat l'avio");
-			    	System.out.println("Introdueix quants k/h vols augmentar la velocitat");
+			    	Printer.increasingSpeed();
+			    	Printer.inputIncreaseSpeed();
 			        currentAirplanes[airplaneNumber].increaseSpeed(InputListener.inputInt(Airplane.SPEED_LIMIT));
 			        break;
 			    case "stop":
-			    	System.out.println("Has escollit reduir la velocitat de l'avio");
-			    	System.out.println("Introdueix quants k/h vols reduir la velocitat");
+			    	Printer.decreasingSpeed();
+			    	Printer.inputDeccreaseSpeed();
 			        currentAirplanes[airplaneNumber].decreaseSpeed(InputListener.inputInt()); // comprobar q no sea menor a 0 y si te qdas sin velocidad en el aire algo
 			        break;
 			    case "increaseAltitude":
-			    	System.out.println("Has escollit incrementar l'altitud de l'avio");
-			    	System.out.println("Introdueix quants metres vols agumentar l' altitud");
+			    	Printer.increasingAltitude();
+			    	Printer.inputIncreaseAltitude();
 			        currentAirplanes[airplaneNumber].increaseAltitude(InputListener.inputInt());
 			        break;
 			    case "decreaseAltitude":
-			    	System.out.println("Has escollit reduir l'altitud de l'avio");
-			    	System.out.println("Introdueix quants metres vols reduir l' altitud");
+			    	Printer.decreasingAltitude();
+			    	Printer.inputDecreaseAltitude();
 			        currentAirplanes[airplaneNumber].decreaseAltitude(InputListener.inputInt());
 			        break;
 			    case "landingGearOn_Off": 
 			    	String landGear = currentAirplanes[airplaneNumber].isLanding_gearOn() == true ? "tancat" : "obert";
-			    	System.out.println("Has LANDING........"); // TERNARNARI PER SETERAR UNA VARIABLE A ENCENDIDO O APAGADO
+			    	Printer.landingGearAction(landGear);
 			        currentAirplanes[airplaneNumber].open_closeLandingGear();
-			        
 			        break;
 			    case "newDirection":
-			    	System.out.println("Has escollit canviar la direccio l'avio");
-			    	System.out.println("Introdueix la nova direccio, rang de 0 a 360 graus");
+			    	Printer.changingDirection();
+			    	Printer.inputDirection();
 			        currentAirplanes[airplaneNumber].setDirection(Airplane.MAXDIRECTION);
 			        break;
 			    case "newX_Y":
-			    	System.out.println("Has escollit canviar la posicio de l'avio");
-			        System.out.println("Introdueix la posicio X");
+			    	Printer.changingPosition();
+			        Printer.inputX();
 			        currentAirplanes[airplaneNumber].setPositionX(InputListener.inputInt());
-			        System.out.println("Introdueix la posicio Y");
+			        Printer.inputY();
 			        currentAirplanes[airplaneNumber].setPositionY(InputListener.inputInt());
 			        break;
 			    case "park":
-			    	System.out.println("Has escollit aparcar l'avio");
+			    	Printer.parkig();
 			        currentAirplanes[airplaneNumber].park();
 			        break;
 			    case "endOperations":
-			    	System.out.println("Has finalitzar l'operativa de l'avio");
+			    	Printer.finishingOperative();
 			    	endOperative = true;
 			        break;
 			}

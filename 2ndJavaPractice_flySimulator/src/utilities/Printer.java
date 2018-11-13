@@ -120,10 +120,10 @@ public final class Printer {
 	public static void freeNumberPlate() {
 		System.out.println("Matricula no registrada");
 	}
-	public static void deletedAirplane(int numberPlate) {
+	public static void deletedAirplane(String numberPlate) {
 		System.out.println("L' avio amb matricula "+numberPlate+" s'ha eliminat");
 	}						
-	public static void crashRisk(int numberPlate1, int numberPlate2) {
+	public static void crashRisk(String numberPlate1, String numberPlate2) {
 		System.out.println("Els avions amb matricula "+numberPlate1+ " i " +numberPlate2+" estan en risc de colisio!!");
 	}
 	public static void dangerMotorOff() {
@@ -161,19 +161,23 @@ public final class Printer {
 	}
 	public static void landingGearToDesc() {
 		System.out.println("Has de desplagar el tren d'aterratge si vols descendir a una altitud inferior als 100 metres");
-	}			
+	}
+	public static void cantCloseLandingGearLanded() {
+		System.out.println("No pots recollir el tren d'aterratge si estas aterrat");
+	}
 
 	// tableInfo
     public static void airplaneTable(Airplane[] currentAirplanes) {
         
         String[] parameters = {"Marca: ","Model: ","Matricula: ","X: ","Y: ","Alcada: ","Velocitat: ","Tren Aterratge: ","Motor: ","Aparcat: "};
         
-        System.out.printf("%10s %30s %20s %5s %5s", "", "Aeronau 1", "Aeronau 2", "Aeronau 3", "Aeronau 4", "Aeronau 5");
+        System.out.printf("%-17s %-17s %-17s %-17s %-17s %-17s %n", "", "Aeronau 1", "Aeronau 2", "Aeronau 3", "Aeronau 4", "Aeronau 5");
+        System.out.printf("%-17s %-85s %n", "", "----------------------------------------------------------------------------------");
         System.out.println();
         for(int position = 0; position < 10; position++) {
-            System.out.printf("%-14s", parameters[position]);
+            System.out.printf("%-18s", parameters[position]);
             for(Airplane airplane : currentAirplanes) {
-                System.out.printf("%-14s", airplane.valueToPrint(position));
+                System.out.printf("%-18s", airplane.valueToPrint(position));
             }
             System.out.println();
         }

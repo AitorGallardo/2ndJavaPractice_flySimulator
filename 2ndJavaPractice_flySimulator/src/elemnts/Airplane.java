@@ -1,5 +1,7 @@
 package elemnts;
 
+import utilities.Printer;
+
 public class Airplane {
 	
 	public static final int MODEL_MAXLENGHT = 10, MANUFACTURER_MAXLENGHT = 10, NUMBERPLATE_MAXLENGHT = 8, MAXDIRECTION = 360, SPEED_LIMIT = 2000, MAXCAPACITY_LIMIT = 500;
@@ -26,19 +28,6 @@ public class Airplane {
 				
 	}
 
-	// MAXIMO MATRICULA, MAXIMO MANUFACTURER, MODELO,MAX DIRECTION, SPEED, CAPACIDAD
-	// PODRIA HACER UNA CLASSE VALIDATORS PARA LAS CONDICIONES O HACER DIRECTAMENTE LOS METODOS EN CADA CLASSE
-	
-
-			/*public void setAnumber(int value) { //// MAX POSITION RANGE (((CONTROL SYSTEM)))
-		    if ((value < 1) || (value > 3))
-		        throw new IllegalArgumentException("value is out of range for anumber");
-		    this.anumber = value;
-			}*/
-
-	
-	//Printer indicando canvios?
-
 	public void turnOn_motor() {
 		motorOn = true;
 	}
@@ -49,28 +38,28 @@ public class Airplane {
 		if(motorOn) {
 			speed+=addSpeed;
 		}else {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void decreaseSpeed(int reduceSpeed) {
 		if(motorOn) {
 			speed-=reduceSpeed;
 		}else if(!motorOn) {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void increaseAltitude(int increasingAltitude) {
 		if(motorOn && checkBeforeIncreasingAltitude(increasingAltitude)) {
 			speed+=increasingAltitude;
 		}else if(!motorOn) {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void decreaseAltitude(int decreasingAltitude) {
 		if(motorOn && checkBeforeDecreasingAltitude(decreasingAltitude)) {
 			speed-=decreasingAltitude;
 		}else if(!motorOn) {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void open_closeLandingGear() {
@@ -85,21 +74,21 @@ public class Airplane {
 				}
 			}
 		} else {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void setDirection(int newDirection) {
 		if(motorOn) {
 			direction = newDirection;
 		} else {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void setPositionX(int positionX) {
 		if(motorOn) {
 			this.positionX = positionX;
 		} else {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 
@@ -107,15 +96,15 @@ public class Airplane {
 		if(motorOn) {
 			this.positionY = positionY;
 		} else {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	public void park() {
 		if(motorOn&&checkBeforePark()) {
-			System.out.println("Es procedeix a aparcar l'avio"); // printer
+			Printer.onParkig();
 			setActive(false);
 		} else if(!motorOn) {
-			System.out.println("No pots realitzar aquesta operacio, el motor esta apagat");
+			Printer.dangerMotorOff();
 		}
 	}
 	
@@ -131,12 +120,12 @@ public class Airplane {
 				return true;
 			} else {
 				if(speedToPark > 20)
-					System.out.println("La velocitat ha de ser inferior a 20km/h per aparcar");
+					Printer.miniumSpeedToPark();
 				if(altitudeToPark > 0)
-					System.out.println("L'avio ha de estar aterrat per poder aparcar. Pots reduir la altitud de l'avio fins a aterrar apretant 'f'");
+					Printer.landedToPark();
 			}
 		} else {
-			System.out.println("L'avio ja esta aparcat");
+			Printer.alreadyParked();
 		}
 		return false;
 	}
@@ -150,7 +139,7 @@ public class Airplane {
 			if(currentSpeed >= minSpeedToTakeOff) {
 				return true;
 			} else {
-				System.out.println("Has de tenir una velocitat minima de 180km/h per enlairarte");
+				Printer.miniumSpeedToFly();
 				return false;
 			}	
 	}
@@ -158,7 +147,7 @@ public class Airplane {
 	public boolean checkLandingGearOnRaiseAltitude(int desiredAltitude) {
 		
 		if(desiredAltitude > 500 && landing_gearOn==false) {
-			System.out.println("Has de recollir el tren d'aterratge si vols enlairarte a mes de 500m d'altitud");
+			Printer.landingGearOffToFly();
 			return false;
 		} else {
 			return true;
@@ -171,7 +160,7 @@ public class Airplane {
 		int currentSpeed = getSpeed();
 		
 		if(currentAltitude > 500 && currentSpeed >= 300) {
-			System.out.println("Hauras de reduir la teva altitud i o velocitat per poder desplegar el tren d'aterratge");
+			Printer.landingGearOnTOFly();
 			return false;
 		} else {
 			return true;
@@ -184,7 +173,10 @@ public class Airplane {
 		int currentAltitude = getAltitude();
 
 		if(currentAltitude <= 50) {
-			System.out.println("Hauras d'augmentar la teva altitud per poder tancar el tren d'aterratge");
+			Printer.incAltitudToLandingGear();
+			return false;
+		} else if(altitude==0) {
+			Printer.cantCloseLandingGearLanded();
 			return false;
 		} else {
 			return true;
@@ -215,16 +207,16 @@ public class Airplane {
 		int desiredAltitude = currentAltitude - inputNewAltitude;
 
 			if(currentAltitude==0) {
-				System.out.println("Estas a terra, no pots descendir ");
+				Printer.alreadyLanded();
 					return false;
 			} else if(desiredAltitude==0) {
-				System.out.println("Has de desplegar el tren d'aterratge per poder aterrar");
+				Printer.landingGearToLand();
 				return false;
 			} else if(desiredAltitude<0) {
-				System.out.println("No pots descendir aquesta altura o colisionaras contra el terre");
+				Printer.crashAltitude();
 					return false;
 			} else if(desiredAltitude<100){
-				System.out.println("Has de desplagar el tren d'aterratge si vols descendir a una altitud inferior als 100 metres");
+				Printer.landingGearToDesc();
 					return false;
 			}		
 					
