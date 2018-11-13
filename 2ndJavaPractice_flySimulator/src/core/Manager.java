@@ -15,12 +15,11 @@ public class Manager {
 			int menuOption;
 			
 			
-
+			Printer.generalOptions();
 			while(end==false) {
-				
-				// System.out.println("Introdueix la opcio de menu");
+				Printer.chooseMenuOption();
 				menuOption = InputListener.menuGeneralOptions(InputListener.inputInt());
-				System.out.println("Has introduit "+menuOption);
+				System.out.print("Has escollit la ");
 
 				switch(menuOption) { 
 
@@ -32,9 +31,11 @@ public class Manager {
 			        	Printer.menu2();
 			        	Printer.inputNumberPlateToStartOperative();
 			        	controlSystem.mainAirplaneFunctions(controlSystem.checkNumberPlateMatches(InputListener.inputStringExactLenght(Airplane.NUMBERPLATE_MAXLENGHT)));
+			        	Printer.menu3();
 			        	controlSystem.airSpaceMaintenance();
-			        	System.out.println("MENU 4");
-			        	controlSystem.checkDangers();
+			        	Printer.menu4();
+                        Printer.airplaneTable(controlSystem.copyOfCurrentAirplanes());
+                        controlSystem.checkDangers();
 			        	// MENU 4
 			            break;
 			        case 3:

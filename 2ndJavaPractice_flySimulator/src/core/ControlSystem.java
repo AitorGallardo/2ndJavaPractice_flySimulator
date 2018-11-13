@@ -58,6 +58,7 @@ public class ControlSystem {
                       freeXYPosition = checkFreePositionOnCreate(x, y);
                 }
                 addAirplane(new Airplane(model, manufacturer, numberPlate, maxCapacity, x, y));
+                Printer.newAirplaneCreated();
 
             } else {
             	Printer.numberPlateAlreadyRegistered();

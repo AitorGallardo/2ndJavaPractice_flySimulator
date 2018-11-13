@@ -35,17 +35,21 @@ public class Airplane {
 		motorOn = false;
 	}
 	public void increaseSpeed(int addSpeed) {
-		if(motorOn) {
+		if(motorOn && speed+addSpeed<=2000) {
 			speed+=addSpeed;
-		}else {
+		}else if(!motorOn) {
 			Printer.dangerMotorOff();
+		} else {
+			Printer.maxSpeed();
 		}
 	}
 	public void decreaseSpeed(int reduceSpeed) {
-		if(motorOn) {
+		if(motorOn && speed-reduceSpeed>=0) {
 			speed-=reduceSpeed;
 		}else if(!motorOn) {
 			Printer.dangerMotorOff();
+		} else {
+			Printer.minSpeed();
 		}
 	}
 	public void increaseAltitude(int increasingAltitude) {

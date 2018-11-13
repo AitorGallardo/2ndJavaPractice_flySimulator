@@ -6,6 +6,20 @@ public final class Printer {
 	
 	private Printer() {}
 
+	// Menu options
+	
+	public static void generalOptions() {
+		System.out.println("Opcions principals\n\n"
+				+ "Opcio 1 del menu: -Afegir avions-\n"
+				+ "Opcio 2 del menu: -Operativa amb avions-\n"
+				+ "Opcio 3 del menu: -Manteniment de l'espai aeri-\n"
+				+ "Opcio 4 del menu: -Informacio de l'espai aeri-");
+	}
+	public static void chooseMenuOption() {
+		System.out.println("\nEscull una opcio");
+	}
+	
+	
 	// Inputs
 
 	public static void inputMenuOption() {
@@ -55,16 +69,16 @@ public final class Printer {
 	// Actions
 
 	public static void menu1() {
-		System.out.println("Has escollit la opcio 1 del menu: -Afegir avions-");
+		System.out.println("opcio 1 del menu: -Afegir avions-\n");
 	}	
 	public static void menu2() {
-		System.out.println("Has escollit la opcio 2 del menu: -Operativa amb avions-");
+		System.out.println("opcio 2 del menu: -Operativa amb avions-\n");
 	}
 	public static void menu3() {
-		System.out.println("Has escollit la opcio 3 del menu: -Manteniment de l'espai aeri-");
+		System.out.println("opcio 3 del menu: -Manteniment de l'espai aeri-\n");
 	}
 	public static void menu4() {
-		System.out.println("Has escollit la opcio 4 del menu: -Informacio de l'espai aeri-");
+		System.out.println("opcio 4 del menu: -Informacio de l'espai aeri-\n");
 	}		
 	public static void turningOnMotor() {
 		System.out.println("Has escollit encendre el motor de l'avio");
@@ -102,6 +116,10 @@ public final class Printer {
 	public static void finishingOperative() {
 		System.out.println("Has finalitzat l'operativa de l'avio");
 	}
+	public static void newAirplaneCreated() {
+		System.out.println("Has creat un nou avio");
+	}
+
 
 	// Alerts
 
@@ -165,13 +183,20 @@ public final class Printer {
 	public static void cantCloseLandingGearLanded() {
 		System.out.println("No pots recollir el tren d'aterratge si estas aterrat");
 	}
+	public static void maxSpeed() {
+		System.out.println("La velocitat maxima de l'avio no pot superar els 2000km/h");
+	}
+	public static void minSpeed() {
+		System.out.println("La velocitat minima de l'avio no pot ser inferior a 0");
+	}
+	
 
 	// tableInfo
     public static void airplaneTable(Airplane[] currentAirplanes) {
         
         String[] parameters = {"Marca: ","Model: ","Matricula: ","X: ","Y: ","Alcada: ","Velocitat: ","Tren Aterratge: ","Motor: ","Aparcat: "};
         
-        System.out.printf("%-17s %-17s %-17s %-17s %-17s %-17s %n", "", "Aeronau 1", "Aeronau 2", "Aeronau 3", "Aeronau 4", "Aeronau 5");
+        System.out.printf("%n%-17s %-17s %-17s %-17s %-17s %-17s %n", "", "Aeronau 1", "Aeronau 2", "Aeronau 3", "Aeronau 4", "Aeronau 5");
         System.out.printf("%-17s %-85s %n", "", "----------------------------------------------------------------------------------");
         System.out.println();
         for(int position = 0; position < 10; position++) {
